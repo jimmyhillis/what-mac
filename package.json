@@ -38,7 +38,9 @@
     "byline": "~4.1.1"
   },
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "test" : "mocha ./test"
+  },
   "keywords": [
     "mac-osx",
     "apple",

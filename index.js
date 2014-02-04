@@ -25,7 +25,7 @@ exports.bySerial = function (serial, callback) {
                     mac = extend(mac, { 'name': 'unknown' });
                 }
                 else {
-                    mac = extend(mac, _configToJSON(result.root.configCode[0]));
+                    mac = extend(mac, exports.configToJSON(result.root.configCode[0]));
                 }
                 callback(null, JSON.stringify(mac));
             });
@@ -49,18 +49,35 @@ var _versionNumber = function (serial) {
  *
  * @return {object}        Split object version of data
  */
-var _configToJSON = function (config) {
-    var name, size, year;
+
+var MATERIALS = ['Aluminum', 'Retina'];
+
+exports.configToJSON = function (config) {
+    var name, size, year, material, speed;
     // Split the computer name, and the rest out
     var config_parts = config.split(/[\(\)]+/).
         filter(function (x) {
             return x;
         });
     name = config_parts.shift();
+    config_parts = config_parts.join();
+    // Find and remove the material type (aluminum, retina)
+    MATERIALS.forEach(function (item) {
+        material = config_parts.indexOf(item) >= 0 ? item : null;
+        if (material === item) {
+            config_parts = config_parts.replace(item, '');
+        }
+    });
     // We now have what could be a size + a year range depending on the
     // machine so pt them together and break it up again on a space or
     // a comma
-    config_parts = config_parts.join().split(/[\s,]+/);
+    config_parts = config_parts.split(/[\s,]+/);
+    // Find and remove any speed included
+    config_parts.forEach(function (item, index) {
+        if (item.indexOf('Hz') >= 0) {
+            speed = config_parts.splice(index, 1);
+        }
+    })
     // If there is a size it will have inches
     if (config_parts[0].indexOf('inch') > 0) {
         size = config_parts.shift();
@@ -68,8 +85,10 @@ var _configToJSON = function (config) {
     year = config_parts.join(' ');
     return {
         _configCode: config,
-        name: config.split('(')[0],
-        size: size,
-        year: year
+        name: name.trim() || null,
+        size: size && size.trim() || null,
+        year: year && year.trim() || null,
+        material: material || null,
+        speed: speed || null
     }
-}
+};
