@@ -1,7 +1,7 @@
 {
   "name": "what-mac",
   "description": "Return the details of a Mac (or group of Macs) from a CSV of serial numbers.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "bin": {
     "what-mac": "bin/what-mac.js"
