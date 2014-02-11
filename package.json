@@ -1,7 +1,7 @@
 {
   "name": "what-mac",
   "description": "Return the details of a Mac (or group of Macs) from a CSV of serial numbers.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "bin": {
     "what-mac": "bin/what-mac.js"
@@ -29,12 +29,10 @@
     "node": "*"
   },
   "dependencies": {
-    "csv-streamify": "~0.9.0",
-    "JSONStream": "~0.7.1",
     "request": "~2.33.0",
+    "extend": "~1.2.1",
     "event-stream": "~3.1.0",
     "xml2js": "~0.4.1",
-    "extend": "~1.2.1",
     "byline": "~4.1.1"
   },
   "devDependencies": {},

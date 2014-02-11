@@ -20,6 +20,8 @@ echo "XXXXXXXXXDV33" | bin/what-mac.js
 
 The CLI accepts a stream of line-separated serial numbers. You can provide a list of any number of serial numbers to return a JSON object for each.
 
+Credit to this [StackExchange](http://apple.stackexchange.com/questions/98080/can-a-macs-model-year-be-determined-via-terminal-command) question for putting me on the right track.
+
 ## Todo
 
 - Convert bin/what-mac to support command line options rather than only stream data
